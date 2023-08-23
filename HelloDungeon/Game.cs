@@ -34,12 +34,13 @@ namespace HelloDungeon
                 "Can you change your fate?");
             //string intialanswer = Console.ReadLine;
          
-            string playername= firstname+" "+secondname;
+            
             Console.WriteLine("Engineer Lady: You! Bot! Can you hear me? State your name!");
             
             string firstname = Console.ReadLine();
             Console.WriteLine("And what is your last name?");
             string secondname = Console.ReadLine();
+            string playername= firstname+" "+secondname;
             Console.WriteLine(playername+"? "+"What an odd name for some cleaner robot; or, a Janus Bot. But whatever that's not important!!" );
             //Console.WriteLine("You spot a female engineer who seems to have locked herself in a room from the monsters.");
         }
