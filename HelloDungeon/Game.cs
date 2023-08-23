@@ -30,9 +30,8 @@ namespace HelloDungeon
             Console.WriteLine("TWIST OF FATE");
             Console.WriteLine("You were once a lowly Janus bot, built and tasked to keep the ship INDAGATUS II clean and sterile. However, things took a turn for the worse when the ship made impact with a large asteroid, infested with monsters. with an alien invasion ");
             Console.WriteLine("underway and all security Antesignano wiped out, it is up to you save the ship's inhabitants from annilation!");
-            Console.WriteLine("" +
-                "Can you change your fate?");
-            //string intialanswer = Console.ReadLine;
+            Console.WriteLine("Can you change your fate?");
+            //string jchoices = Console.ReadLine;
          
             
             Console.WriteLine("Engineer Lady: You! Bot! Can you hear me? State your name!");
@@ -43,6 +42,18 @@ namespace HelloDungeon
             string playername= firstname+" "+secondname;
             Console.WriteLine(playername+"? "+"What an odd name for some cleaner robot; or, a Janus Bot. But whatever that's not important!!" );
             //Console.WriteLine("You spot a female engineer who seems to have locked herself in a room from the monsters.");
+
+            Console.WriteLine("you spot two weapons on the ground,");
+            Console.WriteLine("the one on the left is a shouldered railgun.");
+            Console.WriteLine("the one on the right is a flamethrower for the right arm.");
+            Console.WriteLine("which one do you take?");
+            Console.WriteLine("1:railgun  2:flamethrower");
+            string jchoice= Console.ReadLine();
+
+            if (jchoice == "1")
+            {
+                Console.WriteLine("you pick up the railgun");
+            }
         }
     }
 }
