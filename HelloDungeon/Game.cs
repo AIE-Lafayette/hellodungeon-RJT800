@@ -14,7 +14,10 @@ namespace HelloDungeon
 {
     class Game
     {
+        struct PLAYERTHINGS
+        {
 
+        }
         //CAN REESTART GAME
         //HAVE A WAY TO SHOW OPTIONS OR HAVE IT PRESENT AT ALL
         //HAVE A WAY TO ENTER THE MAIN MENU?
@@ -27,7 +30,7 @@ namespace HelloDungeon
         float PlayerHealth = 10000f;
         float PlayerDefense = .47f;
         float playerSpeed = 15f;
-        bool Playerisalive =true;
+        bool Playerisalive = true;
         int PlayerMoves = 2;
         int CurrentScene = 0;
 
@@ -42,80 +45,190 @@ namespace HelloDungeon
         //gatling gun weapon 1
         //bool HasGatlingGun = false;
         //float GatlingGunDamage = 500f;
-                    
 
-                //flamethrower weapon 2
-                bool HasFlamethrower = false;
+
+        //flamethrower weapon 2
+        bool HasFlamethrower = false;
         float FlamethrowerDamage = 80f;
-       
 
-                // railgun weapon 3
-                bool HasRailgun = false;
+
+        // railgun weapon 3
+        bool HasRailgun = false;
         float RailgunDamage = 240f;
 
 
-                //freeze ray weapon 4 
-                bool HasFreezeBlaster = false;
+        //freeze ray weapon 4 
+        bool HasFreezeBlaster = false;
         float FreezerBlaster = 150f;
-         
-                
-                //laser gun weapon 5
+
+
+        //laser gun weapon 5
         //        bool HasIonLaser = false;
         //float IonLaserDamage = 1000f;
-      
 
-                //stasisbubble tool 6
+
+        //stasisbubble tool 6
         //        bool HasStasisBubble = false;
         //float StasisBubbleDamage = 0f;
-      
 
-                // rocketbooster buff 7
-                bool HasRocketThrusters = false;
+
+        // rocketbooster buff 7
+        bool HasRocketThrusters = false;
         float RocketThrustersDamage = 0f;
 
 
         // healing tool 8
         bool HasSelfRepair = false;
         float SelfRepairHealing = -1500f;
-        
+
 
         // shield tool 9
         bool HasShield = true;
         float ShieldDamage = 0f;
-        
 
 
-                // kamikaze attack 0
-                bool SelfDestruct = false;
+
+        // kamikaze attack 0
+        bool SelfDestruct = false;
         float SelfDestructDamage = 999999999f;
-     
+
 
         //states all enemies stats and misc.
 
 
         //states the stats of the stalker
         //string stalkerAbout = "A slightly below-average sized, skinny creature with white, almost luminescent skin. They appear to be incredibly malnorished, with build being more bone than flesh.\n Their hunting tactics revolves around observing their prey to get a read on their movement and searching for weak points to attack with lighting fast claw strikes when the target is most vulnerable. Their first priority is conserving energy, which explains their reserved mannered of fighting.";
-        float stalkerHealth = 90f;
-        float stalkerDefense = .90f;
-        float stalkerSpeed = 60f;
-        bool stalkerDead = true;
+
+        struct EnemyMonster
+        {
+            public string MonsterName;
+            public string MonsterInfo;
+            public float MonsterHealth;
+            public float MonsterDefense;
+            public float MonsterSpeed;
+            public float MonsterDamage;
+            public float MonsterMoveCount;
+        }
+
+
+        // struct Attack
+        void DisplayStalkerCombatStats(EnemyMonster MonsterA)
+        {
+            Console.WriteLine("Enemy: " + MonsterA.MonsterName);
+            Console.WriteLine("HP: " + MonsterA.MonsterHealth);
+            Console.WriteLine("DEF: " + MonsterA.MonsterDefense);
+            Console.WriteLine("SPD: " + MonsterA.MonsterSpeed);
+            Console.WriteLine("ATK: " + MonsterA.MonsterDamage);
+            Console.WriteLine("\n\n");
+        }
+
+        void DisplayHurkerCombatStats(EnemyMonster MonsterB)
+        {
+            Console.WriteLine("Enemy: " + MonsterB.MonsterName);
+            Console.WriteLine("HP: " + MonsterB.MonsterHealth);
+            Console.WriteLine("DEF: " + MonsterB.MonsterDefense);
+            Console.WriteLine("SPD: " + MonsterB.MonsterSpeed);
+            Console.WriteLine("ATK: " + MonsterB.MonsterDamage);
+            Console.WriteLine("\n\n");
+        }
+
+
+        void Combat (EnemyMonster MonsterA, EnemyMonster MonsterB)
+        {
+            while (MonsterA.MonsterHealth>=0 ||MonsterB.MonsterHealth>=0)
+            {
+
+            DisplayStalkerCombatStats (MonsterA);
+            DisplayHurkerCombatStats (MonsterB);
+                Console.ReadKey(true);
+            StalkerAttacksHurker(ref MonsterA, ref MonsterB);
+                Console.WriteLine("\n\n");
+                Console.ReadKey(true);
+                DisplayStalkerCombatStats(MonsterA);
+                DisplayHurkerCombatStats(MonsterB);
+                Console.ReadKey(true);
+            HurkerAttacksStalker(ref MonsterA, ref MonsterB);
+                Console.WriteLine("\n\n");
+                Console.ReadKey(true);
+
+            }
+
+            if (MonsterA.MonsterHealth >= 0)
+            {
+                Console.WriteLine("The Hurker wins!");
+            }
+            else if (MonsterB.MonsterHealth >= 0);
+            {
+                Console.WriteLine("The Stalker wins!");
+            }
+        }
+
+        float StalkerAttacksHurker(ref EnemyMonster MonsterA, ref EnemyMonster MonsterB)
+        {
+            float reducedDamage = MonsterA.MonsterDamage * MonsterB.MonsterDefense;
+            float remainingHealth = MonsterB.MonsterHealth - reducedDamage;
+            Console.WriteLine(MonsterA.MonsterName + " claws " + MonsterB.MonsterName + " for " + reducedDamage + " damage!");
+            
+
+            return remainingHealth;
+        }
+
+
+
+        float HurkerAttacksStalker(ref EnemyMonster MonsterA, ref EnemyMonster MonsterB)
+        {
+            float reducedDamage = MonsterB.MonsterDamage * MonsterA.MonsterDefense;
+            float remainingHealth = MonsterA.MonsterHealth -= reducedDamage;
+            
+            Console.WriteLine(MonsterB.MonsterName + " smacks "+MonsterA.MonsterName+" for "+reducedDamage+" damage!");
+            
+
+            return remainingHealth;
+        }
+
+
+        ////void chnageNumber(float a)
+
+        //the mock damage calculator function
+        //float CalculateDamage(EnemyMonster MonsterA, EnemyMonster MonsterB )
+        //{
+        //    float reducedDamage = MonsterA.MonsterDamage * MonsterB.MonsterDefense;
+        //    float totalDamage = MonsterB.MonsterHealth - reducedDamage;
+        //    Console.WriteLine(MonsterA.MonsterName+"")
+
+        //    return totalDamage;
+        //}
+
+
+
+        //string monsterAName = "Stalker";
+        //float monsterAHealth = 90f;
+        //float monsterADefense = .90f;
+        //float MonsterASpeed = 60f;
+        //float stalkerStrikeDamage = 600f;
+        //bool stalkerDead = true;
+
+
 
         //function for stalker info
-        void ShowStatus ()
-        {
-            Console.WriteLine("STALKER HEALTH: "+stalkerHealth);
-            Console.WriteLine("STALKER DEFENCE: "+stalkerDefense);
-            Console.WriteLine("PLAYER HEALTH: " +PlayerHealth);
-            Console.WriteLine("PLAYER DEFENCE: "+PlayerDefense);
 
-            return;
-        }
+
+
+        //void ShowStatus ()
+        //{
+        //    Console.WriteLine("STALKER HEALTH: "+stalkerHealth);
+        //    Console.WriteLine("STALKER DEFENCE: "+stalkerDefense);
+        //    Console.WriteLine("PLAYER HEALTH: " +PlayerHealth);
+        //    Console.WriteLine("PLAYER DEFENCE: "+PlayerDefense);
+
+        //    return;
+        //}
 
         //states the stats of the sticker
         //string stickerAbout = "";
         //float stickerHealth = 30;
 
-        //states the stats of the lackey
+        //states the stats of the jockey
         //float lackeyHealth = 25;
 
 
@@ -237,6 +350,9 @@ namespace HelloDungeon
         }
 
         
+
+
+
         //function for menu
         void MainMenu ()
         {
@@ -387,45 +503,45 @@ namespace HelloDungeon
 
 
         //function for tutorial battle sequence
-        void TutorialSequence()
-        {
-            EndDialogue(0, "UNKNOWN STAIN DETECTED: CLEANSE ALL STAINS BEFORE CONTINUING.");
+        //void TutorialSequence()
+        //{
+        //    EndDialogue(0, "UNKNOWN STAIN DETECTED: CLEANSE ALL STAINS BEFORE CONTINUING.");
 
-            ShowStatus();
+        //    ShowStatus();
 
 
 
-            while (stalkerHealth > 0)
-            {
+        //    while (stalkerHealth > 0)
+        //    {
                 
-                Dialogue(0, "Select the \"Mop Strike\" Option by inputing the Number corresponding to the option.");
-                DecisionDialogue(0, "1: Mop Strike");
-                Console.WriteLine("2: MENU");
+        //        Dialogue(0, "Select the \"Mop Strike\" Option by inputing the Number corresponding to the option.");
+        //        DecisionDialogue(0, "1: Mop Strike");
+        //        Console.WriteLine("2: MENU");
                 
                 
-                PlayerChoice = Console.ReadLine();
+        //        PlayerChoice = Console.ReadLine();
                 
-                if (PlayerChoice == "1")
-                {
+        //        if (PlayerChoice == "1")
+        //        {
 
-                    stalkerHealth = CalculateDamage(stalkerHealth, MopStrikeDamage, stalkerDefense);
-                }
-                else if (PlayerChoice == "2")
-                {
-                    MainMenu();
-                    return;
-                }
-                else
-                {
-                    DecisionDialogue(0, "ERROR, INPUT A NUMBER CORRESPONDING TO THE OPTION");
-                }
-                ShowStatus();
+        //            stalkerHealth = CalculateDamage(stalkerHealth, MopStrikeDamage, stalkerDefense);
+        //        }
+        //        else if (PlayerChoice == "2")
+        //        {
+        //            MainMenu();
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            DecisionDialogue(0, "ERROR, INPUT A NUMBER CORRESPONDING TO THE OPTION");
+        //        }
+        //        ShowStatus();
 
-            }
-            if (stalkerHealth <= 0)
-            { CurrentScene = 4; }
-            return;
-        }
+        //    }
+        //    if (stalkerHealth <= 0)
+        //    { CurrentScene = 4; }
+        //    return;
+        //}
 
 
         void VictorySequence()
@@ -656,14 +772,7 @@ namespace HelloDungeon
         }
 
 
-        //the mock damage calculator function
-        float CalculateDamage(float health, float attack, float defense)
-        {
-            float reducedDamage = attack * defense;
-            float totalDamage = health - reducedDamage;
-
-            return totalDamage;
-        }
+        
 
         
 
@@ -685,34 +794,66 @@ namespace HelloDungeon
         public void Run()
         {
             
-            while (Playerisalive == true)
-            {
-                if (CurrentScene == 0)
-                {
-                    Introduction();
-                }    
-                else if (CurrentScene ==1)
-                {
-                    BegginingSequence();
-                }
-                else if (CurrentScene==2)
-                {
-                    TutorialSequence();
-                }
-                else if (CurrentScene ==3)
-                {
-                    NamingSequence();
-                }
-                else if (CurrentScene ==4)
-                {
-                    VictorySequence();
-                }
-                else 
-                {
-                    GameOver();
-                }
+            
+            EnemyMonster MonsterA;
+            MonsterA.MonsterName = "Stalker";
+            MonsterA.MonsterInfo = "A slightly below-average sized, skinny creature with white, almost luminescent skin. They appear to be incredibly malnorished, with build being more bone than flesh.\n Their hunting tactics revolves around observing their prey to get a read on their movement and searching for weak points to attack with lighting fast claw strikes when the target is most vulnerable. Their first priority is conserving energy, which explains their reserved mannered of fighting.";
+            MonsterA.MonsterHealth = 280f;
+            MonsterA.MonsterDefense = .90f;
+            MonsterA.MonsterSpeed = 60f;
+            MonsterA.MonsterDamage = 90f;
+            MonsterA.MonsterMoveCount = 1f;
+            
 
-            }
+            //string monsterAName = "Stalker";
+            //float monsterAHealth = 90f;
+            //float monsterADefense = .90f;
+            //float MonsterASpeed = 60f;
+
+            EnemyMonster MonsterB;
+            MonsterB.MonsterName = "Hurker";
+            MonsterB.MonsterInfo = "TBD";
+            MonsterB.MonsterHealth = 500f;
+            MonsterB.MonsterDefense = .45f;
+            MonsterB.MonsterSpeed = 30f;
+            MonsterB.MonsterDamage = 125f;
+            MonsterB.MonsterMoveCount = 1f;
+
+            Combat(MonsterA, MonsterB);
+
+
+            //DisplayStalkerCombatStats( MonsterA);
+            //DisplayHurkerCombatStats( MonsterB);
+
+            
+            //while (Playerisalive == true)
+            //{
+            //    if (CurrentScene == 0)
+            //    {
+            //        Introduction();
+            //    }    
+            //    else if (CurrentScene ==1)
+            //    {
+            //        BegginingSequence();
+            //    }
+            //    else if (CurrentScene==2)
+            //    {
+            //        //TutorialSequence();
+            //    }
+            //    else if (CurrentScene ==3)
+            //    {
+            //        NamingSequence();
+            //    }
+            //    else if (CurrentScene ==4)
+            //    {
+            //        VictorySequence();
+            //    }
+            //    else 
+            //    {
+            //        GameOver();
+            //    }
+
+            //}
             
         }
     }
