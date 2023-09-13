@@ -1,60 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+﻿using static System.Net.Mime.MediaTypeNames;
 
 namespace HelloDungeon
 {
     class Game
     {
-        struct PLAYERTHINGS
-        {
-
-        }
-        //CAN REESTART GAME
-        //HAVE A WAY TO SHOW OPTIONS OR HAVE IT PRESENT AT ALL
-        //HAVE A WAY TO ENTER THE MAIN MENU?
-        // HAVE A WAY TO QUIT
 
 
-        //states the health, defense, and speed stats for J-CCC (Protagonist)
-        string PlayerName = "J-CCC";
+
+
+
         string PlayerChoice = "";
-        float PlayerHealth = 10000f;
-        float PlayerDefense = .47f;
-        float playerSpeed = 15f;
-        bool Playerisalive = true;
-        int PlayerMoves = 2;
         int CurrentScene = 0;
+
+        bool GameOver;
+
+
+        //ALL CHARACTERS
+
+        //Player
+        Character Player0;
+        Character PlayerA;
+        Character PlayerB;
+        Character PlayerC;
+
+        //stalker enemy
+        Character Stalker;
+
+        // hurker enemy
+        Character Hurker;
+
+
+
+
+
+        //ALL MOVES
+
+        //mopstrike move
+        Attack Mopstrike;
+
+        //roundhouse kick move
+        Attack SpinKick;
+
+        //Elbow strike move
+        Attack ElbowStrike;
+
+        //Shoulder bash move
+        Attack ShoulderBash;
+
+        // flamethrower move
+        Attack FlameThrower;
+
+        //railgun move
+        Attack Railgun;
+
+        //gatling gun move
+        Attack GatlingGun;
 
         //states all moves and options for J-CCC
 
-        bool HasMopStrike = true;
-        float MopStrikeDamage = 50f;
-
-        bool HasElbowStrike = false;
-        float ElbowStrike = 150f;
 
         //gatling gun weapon 1
-        //bool HasGatlingGun = false;
         //float GatlingGunDamage = 500f;
 
 
-        //flamethrower weapon 2
-        bool HasFlamethrower = false;
-        float FlamethrowerDamage = 80f;
-
-
-        // railgun weapon 3
-        bool HasRailgun = false;
-        float RailgunDamage = 240f;
 
 
         //freeze ray weapon 4 
@@ -93,95 +101,129 @@ namespace HelloDungeon
         float SelfDestructDamage = 999999999f;
 
 
-        //states all enemies stats and misc.
 
 
-        //states the stats of the stalker
-        //string stalkerAbout = "A slightly below-average sized, skinny creature with white, almost luminescent skin. They appear to be incredibly malnorished, with build being more bone than flesh.\n Their hunting tactics revolves around observing their prey to get a read on their movement and searching for weak points to attack with lighting fast claw strikes when the target is most vulnerable. Their first priority is conserving energy, which explains their reserved mannered of fighting.";
 
-        struct Monster
+
+
+        // struct for Characters
+        struct Character
         {
-            public string MonsterName;
-            public string MonsterInfo;
-            public float MonsterHealth;
-            public float MonsterDefense;
-            public float MonsterSpeed;
-            public float MonsterDamage;
-            public float MonsterMoveCount;
+            public string CharacterName;
+            public string CharacterInfo;
+            public float CharacterHealth;
+            public float CharacterDefense;
+            public float CharacterSpeed;
+            public float CharacterDamageMultiplier;
+            public float CharacterEnergyCount;
+            public Attack CharacterAttack1;
+            public Attack CharacterAttack2;
+
+        }
+
+        // struct for all attacks
+        struct Attack
+        {
+            public string AttackName;
+            public string AttackInfo;
+            public float AttackDamage;
+            public float AttackCritChance;
+            public float AttackDOT;
+            public float AttackEnergyCost;
+
         }
 
 
-        // struct Attack
-        void DisplayStalkerCombatStats(Monster MonsterA)
+
+        void DisplayStalkerCombatStats(Character Stalker)
         {
-            Console.WriteLine("Enemy: " + MonsterA.MonsterName);
-            Console.WriteLine("HP: " + MonsterA.MonsterHealth);
-            Console.WriteLine("DEF: " + MonsterA.MonsterDefense);
-            Console.WriteLine("SPD: " + MonsterA.MonsterSpeed);
-            Console.WriteLine("ATK: " + MonsterA.MonsterDamage);
+            Console.WriteLine("Enemy: " + Stalker.CharacterName);
+            Console.WriteLine("HP: " + Stalker.CharacterHealth);
+            Console.WriteLine("DEF: " + Stalker.CharacterDefense);
+            Console.WriteLine("SPD: " + Stalker.CharacterSpeed);
+            Console.WriteLine("ATK: " + Stalker.CharacterDamageMultiplier);
+            Console.WriteLine("WEAPON: " + Stalker.CharacterAttack1.AttackDamage);
             Console.WriteLine("\n\n");
         }
 
-        void DisplayHurkerCombatStats(Monster MonsterB)
+        void DisplayHurkerCombatStats(Character Hurker)
         {
-            Console.WriteLine("Enemy: " + MonsterB.MonsterName);
-            Console.WriteLine("HP: " + MonsterB.MonsterHealth);
-            Console.WriteLine("DEF: " + MonsterB.MonsterDefense);
-            Console.WriteLine("SPD: " + MonsterB.MonsterSpeed);
-            Console.WriteLine("ATK: " + MonsterB.MonsterDamage);
+            Console.WriteLine("NAME: " + Hurker.CharacterName);
+            Console.WriteLine("HP: " + Hurker.CharacterHealth);
+            Console.WriteLine("DEF: " + Hurker.CharacterDefense);
+            Console.WriteLine("SPD: " + Hurker.CharacterSpeed);
+            Console.WriteLine("ATK: " + Hurker.CharacterDamageMultiplier);
+            Console.WriteLine("WEAPON: " + Hurker.CharacterAttack1.AttackDamage);
             Console.WriteLine("\n\n");
         }
 
 
-        void Combat (Monster MonsterA, Monster MonsterB)
+        //void Combat (Character Stalker, Character Hurker)
+        //{
+
+
+        //    DisplayStalkerCombatStats (Stalker);
+        //    DisplayHurkerCombatStats (Hurker);
+        //        Console.ReadKey(true);
+        //    StalkerAttacksHurker(ref Stalker, ref Hurker);
+
+        //        Console.ReadKey(true);
+        //        DisplayStalkerCombatStats(Stalker);
+        //        DisplayHurkerCombatStats(Hurker);
+        //        Console.ReadKey(true);
+        //    HurkerAttacksStalker(ref Hurker, ref Stalker);
+
+        //        Console.ReadKey(true);
+
+        //}
+
+        //void CombatResults()
+        //{
+        //    if (Stalker.CharacterHealth > 0 && Character.CharacterHealth < 0)
+        //    {
+        //        Dialogue(0,"The Stalker wins!");
+        //    }
+        //    else if (Character.CharacterHealth > 0 && Stalker.CharacterHealth < 0)
+        //    {
+        //        Dialogue(0,"The Hurker wins!");
+        //    }
+        //}
+
+        float StalkerAttacksHurker(ref Character Stalker, ref Character Hurker)
         {
-            while (MonsterA.MonsterHealth>=0 ||MonsterB.MonsterHealth>=0)
+            float reducedDamage = (Stalker.CharacterDamageMultiplier + Stalker.CharacterAttack1.AttackDamage) * Hurker.CharacterDefense;
+            float remainingHealth = Hurker.CharacterHealth - reducedDamage;
+            if (remainingHealth > 0)
             {
-
-            DisplayStalkerCombatStats (MonsterA);
-            DisplayHurkerCombatStats (MonsterB);
-                Console.ReadKey(true);
-            StalkerAttacksHurker(ref MonsterA, ref MonsterB);
-                Console.WriteLine("\n\n");
-                Console.ReadKey(true);
-                DisplayStalkerCombatStats(MonsterA);
-                DisplayHurkerCombatStats(MonsterB);
-                Console.ReadKey(true);
-            HurkerAttacksStalker(ref MonsterA, ref MonsterB);
-                Console.WriteLine("\n\n");
-                Console.ReadKey(true);
-
-            }
-
-            if (MonsterA.MonsterHealth >= 0)
-            {
-                Console.WriteLine("The Hurker wins!");
-            }
-            else if (MonsterB.MonsterHealth >= 0);
-            {
-                Console.WriteLine("The Stalker wins!");
-            }
-        }
-
-        float StalkerAttacksHurker(ref Monster MonsterA, ref Monster MonsterB)
-        {
-            float reducedDamage = MonsterA.MonsterDamage * MonsterB.MonsterDefense;
-            float remainingHealth = MonsterB.MonsterHealth - reducedDamage;
-            Console.WriteLine(MonsterA.MonsterName + " claws " + MonsterB.MonsterName + " for " + reducedDamage + " damage!");
+            EndDialogue(0, Stalker.CharacterName + " claws " + Hurker.CharacterName + " for " + reducedDamage + " damage!");
             
+            }
+            else if (remainingHealth < 0)
+            {
+                Dialogue(0, Stalker.CharacterName + " claws " + Hurker.CharacterName + " for " + reducedDamage + " damage!");
+                EndDialogue(0, Hurker.CharacterName + " is finished!");
+            }
 
             return remainingHealth;
         }
 
 
 
-        float HurkerAttacksStalker(ref Monster MonsterA, ref Monster MonsterB)
+        float HurkerAttacksStalker(ref Character Stalker, ref Character Hurker)
         {
-            float reducedDamage = MonsterB.MonsterDamage * MonsterA.MonsterDefense;
-            float remainingHealth = MonsterA.MonsterHealth -= reducedDamage;
-            
-            Console.WriteLine(MonsterB.MonsterName + " smacks "+MonsterA.MonsterName+" for "+reducedDamage+" damage!");
-            
+
+            float reducedDamage = (Hurker.CharacterDamageMultiplier + Hurker.CharacterAttack1.AttackDamage) * Stalker.CharacterDefense;
+            float remainingHealth = Stalker.CharacterHealth - reducedDamage;
+            if (remainingHealth > 0)
+            {
+                EndDialogue(0, Hurker.CharacterName + " smacks " + Stalker.CharacterName + " for " + reducedDamage + " damage!");
+
+            }
+            else if (remainingHealth < 0)
+            {
+                Dialogue(0, Hurker.CharacterName + " smacks " + Stalker.CharacterName + " for " + reducedDamage + " damage!"); ;
+                EndDialogue(0, Stalker.CharacterName + " is finished ");
+            }
 
             return remainingHealth;
         }
@@ -250,16 +292,10 @@ namespace HelloDungeon
             {
                 Console.WriteLine("[PRESS A BUTTON TO ADVANCE DIALOGUE]");
                 Console.ReadKey(true);
-                Console.WriteLine("Dr. Ortego: " + Text);
+                Console.WriteLine("Aedificator Ortego: " + Text);
                 Console.ReadKey(true);
             }
-            else if (a == 2)
-            {
-                Console.WriteLine("[PRESS A BUTTON TO ADVANCE DIALOGUE]");
-                Console.ReadKey(true);
-                Console.WriteLine(PlayerName+": " + Text);
-                Console.ReadKey(true);
-            }
+
             
 
         }
@@ -274,14 +310,10 @@ namespace HelloDungeon
             }
             else if (a==1)
             {
-                Console.WriteLine("Dr. Ortego: "+Text);
+                Console.WriteLine("Aedificator Ortego: " + Text);
                 Console.ReadKey(true);
             }
-            else if (a==2)
-            {
-                Console.WriteLine(PlayerName+": "+Text);
-                Console.ReadKey(true);
-            }
+
             
             
 
@@ -301,20 +333,13 @@ namespace HelloDungeon
             }
             else if (a == 1)
             {
-                Console.WriteLine("Dr. Ortego: "+Text);
+                Console.WriteLine("Aedificator Ortego: " + Text);
                 Console.WriteLine("" +
                                 "" +
                                 "");
                 Console.ReadKey(true);
             }
-            else if (a == 2)
-            {
-                Console.WriteLine(PlayerName+": "+Text);
-                Console.WriteLine("" +
-                                "" +
-                                "");
-                Console.ReadKey(true);
-            }
+
 
             
 
@@ -323,73 +348,407 @@ namespace HelloDungeon
         }
 
         //function for upcoming decision from dialogue
-        void DecisionDialogue(int a, string Text)
+        string DecisionDialogue(int a, string Question, string option1, string option2, string option3)
         {
-            if (a == 0)
+            PlayerChoice = "";
+            while (PlayerChoice != "1" && PlayerChoice != "2" && PlayerChoice != "3")
             {
-            Console.WriteLine(Text);
-            Console.WriteLine("" +
-                            "" +
-                            "");
+                //display promblems and solutions
+
+                if (a == 0)
+                {
+                    {
+                    Console.WriteLine(Question);
+                    Console.WriteLine("" +
+                                    "" +
+                                    "");
+
+                    Console.WriteLine("1:" + option1);
+
+                    Console.WriteLine("2:" + option2);
+
+
+                    if (option3 != "")
+                    {
+                        Console.WriteLine("3:" + option3);
+                    }
+
+                    //player input
+                    Console.Write("> ");
+                    PlayerChoice = Console.ReadLine();
+                    }
+
+                // if invalid input,
+                if (PlayerChoice != "1" && PlayerChoice != "2")
+                {
+                    if (PlayerChoice == "3" && option3 != "")
+                    {
+                        continue;
+                    }
+
+
+                    Console.Clear();
+                    Console.WriteLine("Invalid Input");
+                    Console.WriteLine("press a button");
+                    Console.ReadKey(true);
+                }
+
+                }
+                else if (a == 1)
+                {
+                    Console.WriteLine("Aedificator Ortego: " + Question);
+                    Console.WriteLine("" +
+                                    "" +
+                                    "");
+
+                    Console.WriteLine("1:" + option1);
+
+                    Console.WriteLine("2:" + option2);
+
+
+                    if (option3 != "")
+                    {
+                        Console.WriteLine("3:" + option3);
+                    }
+
+                    //player input
+                    Console.Write("> ");
+                    PlayerChoice = Console.ReadLine();
+                }
+
+                // if invalid input,
+                if (PlayerChoice != "1" && PlayerChoice != "2")
+                {
+                    if (PlayerChoice == "3" && option3 != "")
+                    {
+                        continue;
+                    }
+
+
+                    Console.Clear();
+                    Console.WriteLine("Invalid Input");
+                    Console.WriteLine("press a button");
+                    Console.ReadKey(true);
+
+                }
+
+
+
+
+
+
+                //return PlayerChoice;
             }
-            else if (a == 1)
-            {
-                Console.WriteLine("Dr. Ortego: "+Text);
-                Console.WriteLine("" +
-                                "" +
-                                "");
-            }
-            else if (a == 2)
-            {
-                Console.WriteLine(PlayerName+": "+Text);
-                Console.WriteLine("" +
-                                "" +
-                                "");
-            }
-            
+            return PlayerChoice;
         }
 
+
+            void ShowStatus(Character Character)
+            {
+                Console.WriteLine("NAME: " + Character.CharacterName);
+                Console.WriteLine("HP: " + Character.CharacterHealth);
+                Console.WriteLine("DEF: " + Character.CharacterDefense);
+                Console.WriteLine("SPD: " + Character.CharacterSpeed);
+                Console.WriteLine("ATK: " + Character.CharacterAttack1);
+                Console.WriteLine("ATK MULTI: " + Character.CharacterDamageMultiplier);
+                Console.WriteLine("ENERGY: " + Character.CharacterEnergyCount);
+                Console.WriteLine("\n\n");
+
+
+
+            }
+            //PlayerC.CharacterName = "J-CCC";
+            //PlayerC.CharacterInfo = "A robot with new found purpose";
+            //PlayerC.CharacterHealth = 3750f;
+            //PlayerC.CharacterDefense = .50f;
+            //PlayerC.CharacterSpeed = 15f;
+            //PlayerC.CharacterDamageMultiplier = 1.2f;
+            //PlayerC.CharacterEnergyCount = 3f;
+            //PlayerC.CharacterAttack = Mopstrike;
+
+        void ShowWeaponStats (Attack Attack)
+        {
+            Console.WriteLine("WEAPON: "+ Attack.AttackName);
+            Console.WriteLine("INFO: "+Attack.AttackInfo);
+            Console.WriteLine("DAMAGE: "+Attack.AttackDamage);
+            Console.WriteLine("CRITICAL CHANCE: "+Attack.AttackCritChance);
+            if (Attack.AttackDOT != 0)
+            {
+                Console.WriteLine("DAMAGE OVER TIME (DOT): "+Attack.AttackDOT);
+            }
+            Console.WriteLine("ENERGY COST: "+Attack.AttackEnergyCost);
+
+        }
+            void ShowCompleteStatus()
+            {
+
+            }
+
+
+            void PickChassis()
+            {
+
+            }
+
+            void BuildaRobot()
+            {
+                BeginDialogue(0, "IN AEDIFICATOR ORTEGO'S OFFICE");
+                Dialogue(1, "Finally, I got his core out!");
+                Dialogue(1, "Better be careful with this, these power cores can be very volatile.");
+                EndDialogue(1, "Okay, so first thing's first, I'm gonna need to put you into a new chassis, but what to pick...");
+
+                int uhh = 0;
+                while (uhh == 0)
+                {
+                    uhh = 1;
+                    DecisionDialogue(0, "SELECT A CHASSIS", "Hermes Chassis: enables faster movement at the cost of of being weaker", "Hercules' Chassis: Boasts stronger offensive capabilites.", "Salus' Chassis: offers higher durability at the cost of agility.");
+
+                    if (PlayerChoice == "1")
+                    {
+                        Player0 = PlayerA;
+                    }
+                    else if (PlayerChoice == "2")
+                    {
+                        Player0 = PlayerB;
+                    }
+                    else if (PlayerChoice == "3")
+                    {
+                        Player0 = PlayerC;
+                    }
+
+                    ShowStatus(Player0);
+
+                    DecisionDialogue(1, "Would this be a good fit?", "Yeah!", "Nah...", "");
+
+                    if (PlayerChoice == "1")
+                    {
+                        uhh++;
+                    }
+                    else if (PlayerChoice == "2")
+                    {
+                        return;
+                    }
+                }
+
+            Dialogue(1, "Okay, now I need to give him a weapon, can't have him running around just flailing his arms at this things.");
+            DecisionDialogue(1, "What should I give him?", "Gatling gun: "+ GatlingGun.AttackInfo, "Flamethrower: "+FlameThrower.AttackInfo,"fulgur"+Railgun.AttackInfo);
+
+            if (PlayerChoice == "1")
+            {
+                Player0.CharacterAttack2 = GatlingGun;
+            }
+            else if (PlayerChoice == "2")
+            {
+                Player0.CharacterAttack2 = FlameThrower;
+            }
+            else if (PlayerChoice == "3")
+            {
+                Player0.CharacterAttack2 = Railgun;
+            }
+
+            ShowWeaponStats(Player0.CharacterAttack2);
+
+            }
+        
+       
+                                                                                                void Start()
+        {
+            //all moves
+
+            //.AttackName =
+            //.AttackInfo =
+            //.AttackDamage =
+            //.AttackCritChance =
+            //.AttackDOT =
+            //.AttackEnergyCost =
+
+            //default attacks
+
+            Mopstrike.AttackName = "Mopstrike";
+            Mopstrike.AttackInfo = "One swipe and the dirt is gone!";
+            Mopstrike.AttackDamage = 25f;
+            Mopstrike.AttackCritChance = 1f;
+            Mopstrike.AttackDOT = 0f;
+            Mopstrike.AttackEnergyCost = 1f;
+
+            SpinKick.AttackName = "SpinKick";
+            SpinKick.AttackInfo = "PREFORM A HIGH-SPEED 360 KICK.";
+            SpinKick.AttackDamage = 50f;
+            SpinKick.AttackCritChance = 50f;
+            SpinKick.AttackDOT = 0f;
+            SpinKick.AttackEnergyCost = 1f;
+
+            ElbowStrike.AttackName = "Elbow_Strike";
+            ElbowStrike.AttackInfo = "Thrust your elbow joint forward in a quick motion.";
+            ElbowStrike.AttackDamage = 75f;
+            ElbowStrike.AttackCritChance = 15f;
+            ElbowStrike.AttackDOT = 0f;
+            ElbowStrike.AttackEnergyCost = 1f;
+
+            ShoulderBash.AttackName = "ShoulderBash";
+            ShoulderBash.AttackInfo = "FROM A DASH, THROW YOUR WEIGHT FORWARD SHOULDER FIRST";
+            ShoulderBash.AttackDamage = 100f;
+            ShoulderBash.AttackCritChance = 33f;
+            ShoulderBash.AttackDOT = 0f;
+            ShoulderBash.AttackEnergyCost = 2f;
+
+            // actual weapons
+
+            GatlingGun.AttackName = "Gatling Gun";
+            GatlingGun.AttackInfo = "A rapid-firing multiple-barrel firearm";
+            GatlingGun.AttackDamage = 50f * 15f;
+            GatlingGun.AttackCritChance = 25f;
+            GatlingGun.AttackDOT = 0f;
+            GatlingGun.AttackEnergyCost = 1f;
+
+            FlameThrower.AttackName = "Ignis_Interjicio";
+            FlameThrower.AttackInfo = "A flamethrower with a fire red finish, yeah that's all i got for now";
+            FlameThrower.AttackDamage = 250f;
+            FlameThrower.AttackCritChance = 50f;            
+            FlameThrower.AttackDOT = 50f;
+            FlameThrower.AttackEnergyCost = 2f;
+
+            Railgun.AttackName = "Fulgur_Iactus";
+            Railgun.AttackInfo = "A Bulky shoulder-mounted Railgun, modified to charge and fire a Bolt of Lighting faster than normal. It's very wellkempt,and has a nice azure finish.";
+            Railgun.AttackDamage = 1000f;
+            Railgun.AttackCritChance = 10f;
+            Railgun.AttackDOT = 0f;
+            Railgun.AttackEnergyCost = 3f;
+
+
+            // ALL CHARACTER AND ENTITIES
+
+
+            //template
+            ///.CharacterName =
+            ///.CharacterInfo +
+            ///.CharacterHealth =
+            ///.CharacterDefense =
+            ///.CharacterSpeed =
+            ///.CharacterDamageMultiplier =
+            ///.CharacterEnergyCount =
+            ///.CharacterAttack1 =
+            ///.CharacterAttack2 =
+
+            Player0.CharacterName= "J-CCC";
+            Player0.CharacterInfo = "A robot with new found purpose";
+            Player0.CharacterHealth = 10000f;
+            Player0.CharacterDefense = .47f;
+            Player0.CharacterSpeed = 15f;
+            Player0.CharacterDamageMultiplier = 1.0f;
+            Player0.CharacterEnergyCount = 2f;
+            Player0.CharacterAttack1 = Mopstrike;
+            Player0.CharacterAttack2 = Mopstrike;
+
+            PlayerA.CharacterName = "J-CCC";
+            PlayerA.CharacterInfo = "A robot with new found purpose";
+            PlayerA.CharacterHealth = 1500f;
+            PlayerA.CharacterDefense = .80f;
+            PlayerA.CharacterSpeed = 75f;
+            PlayerA.CharacterDamageMultiplier = 0.9f;
+            PlayerA.CharacterEnergyCount = 5f;
+            PlayerA.CharacterAttack1 = SpinKick;
+            PlayerA.CharacterAttack2 = Mopstrike;
+
+            PlayerB.CharacterName = "J-CCC";
+            PlayerB.CharacterInfo = "A robot with new found purpose";
+            PlayerB.CharacterHealth = 2250f;
+            PlayerB.CharacterDefense = .69f;
+            PlayerB.CharacterSpeed = 45f;
+            PlayerB.CharacterDamageMultiplier = 1.8f;
+            PlayerB.CharacterEnergyCount = 4f;
+            PlayerB.CharacterAttack1 = ElbowStrike;
+            PlayerB.CharacterAttack2 = Mopstrike;
+
+
+            PlayerC.CharacterName = "J-CCC";
+            PlayerC.CharacterInfo = "A robot with new found purpose";
+            PlayerC.CharacterHealth = 3750f;
+            PlayerC.CharacterDefense = .50f;
+            PlayerC.CharacterSpeed = 15f;
+            PlayerC.CharacterDamageMultiplier = 1.2f;
+            PlayerC.CharacterEnergyCount = 3f;
+            PlayerC.CharacterAttack1 = ShoulderBash;
+            PlayerC.CharacterAttack2 = Mopstrike;
+
+
+
+            // enemies
+
+            Stalker.CharacterName = "Stalker";
+            Stalker.CharacterInfo = "A slightly below-average sized, skinny creature with white, almost luminescent skin. They appear to be incredibly malnorished, with build being more bone than flesh.\n Their hunting tactics revolves around observing their prey to get a read on their movement and searching for weak points to attack with lighting fast claw strikes when the target is most vulnerable. Their first priority is conserving energy, which explains their reserved mannered of fighting.";
+            Stalker.CharacterHealth = 280f;
+            Stalker.CharacterDefense = .90f;
+            Stalker.CharacterSpeed = 60f;
+            Stalker.CharacterDamageMultiplier = 1.0f;
+            Stalker.CharacterEnergyCount = 1f;
+            Stalker.CharacterAttack1 = FlameThrower;
+            
+
+            
+            Hurker.CharacterName = "Hurker";
+            Hurker.CharacterInfo = "TBD";
+            Hurker.CharacterHealth = 500f;
+            Hurker.CharacterDefense = .45f;
+            Hurker.CharacterSpeed = 30f;
+            Hurker.CharacterDamageMultiplier = 1.6f;
+            Hurker.CharacterEnergyCount = 1f;
+            Hurker.CharacterAttack1 = Railgun;
+            }
+
+                                                                                                void Update()
+        {
+            if (CurrentScene == 0)
+            {
+                BuildaRobot();
+                //Combat(Stalker, Hurker);
+            }
+        }
         
 
+                                                                                                void End()
+        {
+            Console.WriteLine("You have saved the ship!!");
+        }
 
 
         //function for menu
-        void MainMenu ()
-        {
-            DecisionDialogue(0, "PAUSED");
-            Console.WriteLine("1. Resume");
-            Console.WriteLine("2. Restart");
-            Console.WriteLine("3. Return to Start");
-            Console.WriteLine("4. Quit Game");
-            PlayerChoice = "";
-            while (PlayerChoice != "1" && PlayerChoice != "2" && PlayerChoice != "2" && PlayerChoice != "4")
-            {
-                PlayerChoice = Console.ReadLine();
-                if (PlayerChoice == "1")
-                {
-                    return;
-                }
-                else if (PlayerChoice == "2")
-                {
-                    CurrentScene = 1;
-                }
-                else if (PlayerChoice == "3")
-                {
-                    CurrentScene = 0;
-                    return;
-                }
-                else if (PlayerChoice == "4")
-                {
-                    Playerisalive = false;   
-                }
-                else
-                {
-                    DecisionDialogue(0, "INVALID INPUT, PLEASE INPUT THE NUMBER PERTAINING TO YOUR DESIRED CHOICE");
-                }
+        //void MainMenu ()
+        //{
+        //    DecisionDialogue(0, "PAUSED");
+        //    Console.WriteLine("1. Resume");
+        //    Console.WriteLine("2. Restart");
+        //    Console.WriteLine("3. Return to Start");
+        //    Console.WriteLine("4. Quit Game");
+        //    PlayerChoice = "";
+        //    while (PlayerChoice != "1" && PlayerChoice != "2" && PlayerChoice != "2" && PlayerChoice != "4")
+        //    {
+        //        PlayerChoice = Console.ReadLine();
+        //        if (PlayerChoice == "1")
+        //        {
+        //            return;
+        //        }
+        //        else if (PlayerChoice == "2")
+        //        {
+        //            CurrentScene = 1;
+        //        }
+        //        else if (PlayerChoice == "3")
+        //        {
+        //            CurrentScene = 0;
+        //            return;
+        //        }
+        //        else if (PlayerChoice == "4")
+        //        {
+        //            Playerisalive = false;   
+        //        }
+        //        else
+        //        {
+        //            DecisionDialogue(0, "INVALID INPUT, PLEASE INPUT THE NUMBER PERTAINING TO YOUR DESIRED CHOICE");
+        //        }
                 
-            }
+        //    }
             
-        }
+        //}
 
         //mock menu function
         string TBD_Menu(string prompt, string option1, string option2, string option3)
@@ -440,44 +799,44 @@ namespace HelloDungeon
 
 
         //function for introduction
-        void Introduction()
-        {
-            BeginDialogue(0, "TWIST OF FATE: \n METAMORPHIS");
-            Dialogue(0, "[IT IS RECOMMENDED TO PLAY WITH CAPS LOCK ON]");
-            Dialogue(0,"You were once a lowly Janus bot, built and tasked to keep the ship INDAGATUS II clean and sterile.");
-            Dialogue(0, "However, things took a turn for the worse when the ship made impact with a large asteroid, infested with monsters.");
-            Dialogue(0, "With an monster invasion underway and all security Antesignano wiped out, it is up to you save the ship's inhabitants from annihilation!");
-            DecisionDialogue(0, "Can you change your fate? Y/N");
+        //void Introduction()
+        //{
+        //    BeginDialogue(0, "TWIST OF FATE: \n METAMORPHIS");
+        //    Dialogue(0, "[IT IS RECOMMENDED TO PLAY WITH CAPS LOCK ON]");
+        //    Dialogue(0,"You were once a lowly Janus bot, built and tasked to keep the ship INDAGATUS II clean and sterile.");
+        //    Dialogue(0, "However, things took a turn for the worse when the ship made impact with a large asteroid, infested with monsters.");
+        //    Dialogue(0, "With an monster invasion underway and all security Antesignano wiped out, it is up to you save the ship's inhabitants from annihilation!");
+        //    DecisionDialogue(0, "Can you change your fate? Y/N");
 
 
-            while (PlayerChoice != "Y" && PlayerChoice != "N")
-            {
+        //    while (PlayerChoice != "Y" && PlayerChoice != "N")
+        //    {
                 
-            PlayerChoice = Console.ReadLine();
+        //    PlayerChoice = Console.ReadLine();
                 
-                if (PlayerChoice == "Y")
-                {
-                    EndDialogue(0, "Then if you truly believe you can, seek it out and bring this ship from the brink of destruction!");
-                    CurrentScene = 1;
-                    return;
-                }
-                else if (PlayerChoice == "N")
-                {
-                    BeginDialogue(0, "BAD END");
-                    Dialogue(0, "BY FAILING TO EVEN ATTEMPT TO CHANGE FATE, YOU HAVE ALREADY LOST");
-                    Dialogue(0, "THE SHIP FALLS TO CHAOS, CLAIMED BY THE CREATURES");
-                    EndDialogue(0, "THERE WERE NO SURVIVORS");
-                    Playerisalive = false;
-                    return;
-                }
-                else
-                {
-                    DecisionDialogue(0, "ERROR, INVALID INPUT, INPUT A LETTER CORRESPONDING TO YOUR WANTED CHOICE.");
+        //        if (PlayerChoice == "Y")
+        //        {
+        //            EndDialogue(0, "Then if you truly believe you can, seek it out and bring this ship from the brink of destruction!");
+        //            CurrentScene = 1;
+        //            return;
+        //        }
+        //        else if (PlayerChoice == "N")
+        //        {
+        //            BeginDialogue(0, "BAD END");
+        //            Dialogue(0, "BY FAILING TO EVEN ATTEMPT TO CHANGE FATE, YOU HAVE ALREADY LOST");
+        //            Dialogue(0, "THE SHIP FALLS TO CHAOS, CLAIMED BY THE CREATURES");
+        //            EndDialogue(0, "THERE WERE NO SURVIVORS");
+        //            Playerisalive = false;
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            DecisionDialogue(0, "ERROR, INVALID INPUT, INPUT A LETTER CORRESPONDING TO YOUR WANTED CHOICE.");
                     
-                }
-            }
-            return;
-        }
+        //        }
+        //    }
+        //    return;
+        //}
 
         //function for beggining sequence
         void BegginingSequence ()
@@ -503,6 +862,7 @@ namespace HelloDungeon
 
 
         //function for tutorial battle sequence
+
         //void TutorialSequence()
         //{
         //    EndDialogue(0, "UNKNOWN STAIN DETECTED: CLEANSE ALL STAINS BEFORE CONTINUING.");
@@ -544,11 +904,11 @@ namespace HelloDungeon
         //}
 
 
-        void VictorySequence()
-        {
-            BeginDialogue(0, "YOU WON");
-                Playerisalive = false;
-        }
+        //void VictorySequence()
+        //{
+        //    BeginDialogue(0, "YOU WON");
+        //        Playerisalive = false;
+        //}
 
         //function for naming sequence
         void NamingSequence ()
@@ -615,81 +975,81 @@ namespace HelloDungeon
 
 
         //function for new weapon sequence
-        void NewWeapon()
-        {
+        //void NewWeapon()
+        //{
             
-            BeginDialogue(0, "you spot two weapons on the ground,");
-                Dialogue(0, "the one on the left is a railgun.");
-                Dialogue(0, "the one on the right is a flamethrower.");
-                Dialogue(0, "which one do you take?");
-                DecisionDialogue(0, "1:railgun  2:flamethrower");
+        //    BeginDialogue(0, "you spot two weapons on the ground,");
+        //        Dialogue(0, "the one on the left is a railgun.");
+        //        Dialogue(0, "the one on the right is a flamethrower.");
+        //        Dialogue(0, "which one do you take?");
+        //        DecisionDialogue(0, "1:railgun  2:flamethrower");
 
-            while (PlayerChoice != "1" && PlayerChoice != "2")
-            {
+        //    while (PlayerChoice != "1" && PlayerChoice != "2")
+        //    {
 
                 
 
-                PlayerChoice = Console.ReadLine();
+        //        PlayerChoice = Console.ReadLine();
 
-                if (PlayerChoice == "1")
-                {
-                    HasRailgun = true;
-                    Dialogue(0, "You pick up the railgun and swap out your shoulder mounted pressure washer with it. As you see the azure paint job contrast with your factory default silver finish, You feel as if you are slowly changing into someone else.");
+        //        if (PlayerChoice == "1")
+        //        {
+        //            HasRailgun = true;
+        //            Dialogue(0, "You pick up the railgun and swap out your shoulder mounted pressure washer with it. As you see the azure paint job contrast with your factory default silver finish, You feel as if you are slowly changing into someone else.");
                     
-                }
-                else if (PlayerChoice == "2")
-                {
+        //        }
+        //        else if (PlayerChoice == "2")
+        //        {
                     
-                    HasFlamethrower = true;
-                    Dialogue(0, "You pick up the flamethrower and swap your vacuum attachment on your arm with. As you see the red details of the flamethrower contrast with your factory default silver finish, you feel as if you are slowly changing into something else.");
+        //            HasFlamethrower = true;
+        //            Dialogue(0, "You pick up the flamethrower and swap your vacuum attachment on your arm with. As you see the red details of the flamethrower contrast with your factory default silver finish, you feel as if you are slowly changing into something else.");
                     
-                }
-                else
-                {
+        //        }
+        //        else
+        //        {
                    
-                    DecisionDialogue(0, "INVALID INPUT, PLEASE INPUT THE NUMBER PERTAINING TO YOUR DESIRED CHOICE");
+        //            DecisionDialogue(0, "INVALID INPUT, PLEASE INPUT THE NUMBER PERTAINING TO YOUR DESIRED CHOICE");
                     
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
 
         // function for game over sequence 
         //1:restart fight   2: restart from begginning  3: return to main menu  4:quit game
-        void GameOver ()
-        {
-                BeginDialogue(0, "YOUR JOURNEY HAS COME TO AN END.");
-                Dialogue(0, "YOUR EFFORTS IN CHANGING YOUR FATE WERE IN VAIN.");
-                Dialogue(0, "THE MONSTERS ENVELOP THE SHIP, LEAVING NO SURVIVORS.");
-            Dialogue(0, "WILL YOU ATTEMPT TO CHANGE FATE ONCE MORE?");
-            DecisionDialogue(0, "1: TRY AGAIN");
+        //void GameOver ()
+        //{
+        //        BeginDialogue(0, "YOUR JOURNEY HAS COME TO AN END.");
+        //        Dialogue(0, "YOUR EFFORTS IN CHANGING YOUR FATE WERE IN VAIN.");
+        //        Dialogue(0, "THE MONSTERS ENVELOP THE SHIP, LEAVING NO SURVIVORS.");
+        //    Dialogue(0, "WILL YOU ATTEMPT TO CHANGE FATE ONCE MORE?");
+        //    DecisionDialogue(0, "1: TRY AGAIN");
 
-            while (PlayerChoice != "1" && PlayerChoice != "2" && PlayerChoice != "2" && PlayerChoice != "4" )
-            {
-                PlayerChoice = Console.ReadLine();
-                if (PlayerChoice=="1")
-                {
-                    CurrentScene = 9;
-                }
-                else if (PlayerChoice=="2")
-                {
-                    CurrentScene = 1;
-                }
-                else if (PlayerChoice=="3")
-                {
-                    CurrentScene = 0;
-                }
-                else if (PlayerChoice=="4")
-                {
-                    Playerisalive = false;
-                }
-                else
-                {
-                    DecisionDialogue(0, "INVALID INPUT, PLEASE INPUT THE NUMBER PERTAINING TO YOUR DESIRED CHOICE");
-                }
-            }
+        //    while (PlayerChoice != "1" && PlayerChoice != "2" && PlayerChoice != "2" && PlayerChoice != "4" )
+        //    {
+        //        PlayerChoice = Console.ReadLine();
+        //        if (PlayerChoice=="1")
+        //        {
+        //            CurrentScene = 9;
+        //        }
+        //        else if (PlayerChoice=="2")
+        //        {
+        //            CurrentScene = 1;
+        //        }
+        //        else if (PlayerChoice=="3")
+        //        {
+        //            CurrentScene = 0;
+        //        }
+        //        else if (PlayerChoice=="4")
+        //        {
+        //            Playerisalive = false;
+        //        }
+        //        else
+        //        {
+        //            DecisionDialogue(0, "INVALID INPUT, PLEASE INPUT THE NUMBER PERTAINING TO YOUR DESIRED CHOICE");
+        //        }
+        //    }
 
-        }
+        //}
 
        
 
@@ -719,63 +1079,57 @@ namespace HelloDungeon
         // on enemy turn, each enemy gets a to preform a action such as attack, defend, buff, or debuff
         // allows for more enemies and even duplicate enemies as well
 
-        string PlayerTurn (string prompt, string option1, string option2, string option3)
-        {
-            float movecount = 2f;
-            PlayerChoice = "0";
+        //string Decision (string prompt, string option1, string option2, string option3)
+        //{
+        //    float movecount = 2f;
+        //    PlayerChoice = "0";
 
 
-            for (movecount = 2f; movecount == 0f; movecount--)
-            {
-                while (PlayerChoice != "1" && PlayerChoice != "2" && PlayerChoice != "3")
-                {
-                    //display promblems and solutions
+        //    for (movecount = 2f; movecount == 0f; movecount--)
+        //    {
+        //        while (PlayerChoice != "1" && PlayerChoice != "2" && PlayerChoice != "3")
+        //        {
+        //            //display promblems and solutions
                     
-                    Console.WriteLine(prompt);
+        //            Console.WriteLine(prompt);
 
-                    Console.WriteLine("1." + option1);
+        //            Console.WriteLine("1." + option1);
 
-                    Console.WriteLine("2." + option2);
+        //            Console.WriteLine("2." + option2);
 
-                    Console.WriteLine("3" + option3);
+        //            Console.WriteLine("3" + option3);
 
-                    if (option3 != "")
-                    {
-                        Console.WriteLine("3." + option3);
-                    }
+        //            if (option3 != "")
+        //            {
+        //                Console.WriteLine("3." + option3);
+        //            }
 
-                    //player input
-                    Console.WriteLine("> ");
-                    PlayerChoice = Console.ReadLine();
+        //            //player input
+        //            Console.WriteLine("> ");
+        //            PlayerChoice = Console.ReadLine();
 
-                    // if invalid input,
-                    if (PlayerChoice != "1" && PlayerChoice != "2")
-                    {
-                        if (PlayerChoice == "3" && option3 != "")
-                        {
-                            continue;
-                        }
+        //            // if invalid input,
+        //            if (PlayerChoice != "1" && PlayerChoice != "2")
+        //            {
+        //                if (PlayerChoice == "3" && option3 != "")
+        //                {
+        //                    continue;
+        //                }
 
-                        //
-                        Console.Clear();
-                        Console.WriteLine("Invalid Input");
-                        Console.WriteLine("press a button");
-                        Console.ReadKey(true);
+        //                //
+        //                Console.Clear();
+        //                Console.WriteLine("Invalid Input");
+        //                Console.WriteLine("press a button");
+        //                Console.ReadKey(true);
 
-                    }
+        //            }
 
-                }
+        //        }
 
                 
-            }
-            return PlayerChoice;
-        }
-
-
-        
-
-        
-
+        //    }
+        //    return PlayerChoice;
+        //}
 
         //mock status function
         void StatusMenu(string Name, float Health, float Defense, float Speed)
@@ -787,44 +1141,19 @@ namespace HelloDungeon
             return;
         }
 
-       
-
-        
-
         public void Run()
         {
-            
-            
-            Monster MonsterA;
-            MonsterA.MonsterName = "Stalker";
-            MonsterA.MonsterInfo = "A slightly below-average sized, skinny creature with white, almost luminescent skin. They appear to be incredibly malnorished, with build being more bone than flesh.\n Their hunting tactics revolves around observing their prey to get a read on their movement and searching for weak points to attack with lighting fast claw strikes when the target is most vulnerable. Their first priority is conserving energy, which explains their reserved mannered of fighting.";
-            MonsterA.MonsterHealth = 280f;
-            MonsterA.MonsterDefense = .90f;
-            MonsterA.MonsterSpeed = 60f;
-            MonsterA.MonsterDamage = 90f;
-            MonsterA.MonsterMoveCount = 1f;
-            
-
-            //string monsterAName = "Stalker";
-            //float monsterAHealth = 90f;
-            //float monsterADefense = .90f;
-            //float MonsterASpeed = 60f;
-
-            Monster MonsterB;
-            MonsterB.MonsterName = "Hurker";
-            MonsterB.MonsterInfo = "TBD";
-            MonsterB.MonsterHealth = 500f;
-            MonsterB.MonsterDefense = .45f;
-            MonsterB.MonsterSpeed = 30f;
-            MonsterB.MonsterDamage = 125f;
-            MonsterB.MonsterMoveCount = 1f;
-
-            Combat(MonsterA, MonsterB);
+            //ALWAYS HAVE THE TEST FUNCTION UNDERNEATH START!!!!!!!!!!!!!!!!!!!!
+            Start();
 
 
-            //DisplayStalkerCombatStats( MonsterA);
-            //DisplayHurkerCombatStats( MonsterB);
+            while (GameOver==false)
+            {
+                Update();
+            }
 
+
+            End();
             
             //while (Playerisalive == true)
             //{
