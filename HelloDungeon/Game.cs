@@ -99,7 +99,7 @@ namespace HelloDungeon
         //states the stats of the stalker
         //string stalkerAbout = "A slightly below-average sized, skinny creature with white, almost luminescent skin. They appear to be incredibly malnorished, with build being more bone than flesh.\n Their hunting tactics revolves around observing their prey to get a read on their movement and searching for weak points to attack with lighting fast claw strikes when the target is most vulnerable. Their first priority is conserving energy, which explains their reserved mannered of fighting.";
 
-        struct EnemyMonster
+        struct Monster
         {
             public string MonsterName;
             public string MonsterInfo;
@@ -112,7 +112,7 @@ namespace HelloDungeon
 
 
         // struct Attack
-        void DisplayStalkerCombatStats(EnemyMonster MonsterA)
+        void DisplayStalkerCombatStats(Monster MonsterA)
         {
             Console.WriteLine("Enemy: " + MonsterA.MonsterName);
             Console.WriteLine("HP: " + MonsterA.MonsterHealth);
@@ -122,7 +122,7 @@ namespace HelloDungeon
             Console.WriteLine("\n\n");
         }
 
-        void DisplayHurkerCombatStats(EnemyMonster MonsterB)
+        void DisplayHurkerCombatStats(Monster MonsterB)
         {
             Console.WriteLine("Enemy: " + MonsterB.MonsterName);
             Console.WriteLine("HP: " + MonsterB.MonsterHealth);
@@ -133,7 +133,7 @@ namespace HelloDungeon
         }
 
 
-        void Combat (EnemyMonster MonsterA, EnemyMonster MonsterB)
+        void Combat (Monster MonsterA, Monster MonsterB)
         {
             while (MonsterA.MonsterHealth>=0 ||MonsterB.MonsterHealth>=0)
             {
@@ -163,7 +163,7 @@ namespace HelloDungeon
             }
         }
 
-        float StalkerAttacksHurker(ref EnemyMonster MonsterA, ref EnemyMonster MonsterB)
+        float StalkerAttacksHurker(ref Monster MonsterA, ref Monster MonsterB)
         {
             float reducedDamage = MonsterA.MonsterDamage * MonsterB.MonsterDefense;
             float remainingHealth = MonsterB.MonsterHealth - reducedDamage;
@@ -175,7 +175,7 @@ namespace HelloDungeon
 
 
 
-        float HurkerAttacksStalker(ref EnemyMonster MonsterA, ref EnemyMonster MonsterB)
+        float HurkerAttacksStalker(ref Monster MonsterA, ref Monster MonsterB)
         {
             float reducedDamage = MonsterB.MonsterDamage * MonsterA.MonsterDefense;
             float remainingHealth = MonsterA.MonsterHealth -= reducedDamage;
@@ -795,7 +795,7 @@ namespace HelloDungeon
         {
             
             
-            EnemyMonster MonsterA;
+            Monster MonsterA;
             MonsterA.MonsterName = "Stalker";
             MonsterA.MonsterInfo = "A slightly below-average sized, skinny creature with white, almost luminescent skin. They appear to be incredibly malnorished, with build being more bone than flesh.\n Their hunting tactics revolves around observing their prey to get a read on their movement and searching for weak points to attack with lighting fast claw strikes when the target is most vulnerable. Their first priority is conserving energy, which explains their reserved mannered of fighting.";
             MonsterA.MonsterHealth = 280f;
@@ -810,7 +810,7 @@ namespace HelloDungeon
             //float monsterADefense = .90f;
             //float MonsterASpeed = 60f;
 
-            EnemyMonster MonsterB;
+            Monster MonsterB;
             MonsterB.MonsterName = "Hurker";
             MonsterB.MonsterInfo = "TBD";
             MonsterB.MonsterHealth = 500f;
