@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using System.ComponentModel.DataAnnotations;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HelloDungeon
 {
@@ -228,6 +229,29 @@ namespace HelloDungeon
             return remainingHealth;
         }
 
+
+        void AttackMove(ref Attack move, ref Character target)
+        {
+            
+            //float combinedAttackDamage = (move.CharacterDamageMultiplier * move.CharacterAttack);
+            //float reducedDamage = (combinedAttackDamage * target.CharacterDefense);
+            //float remainingHealth = target.CharacterHealth - reducedDamage;
+        }
+
+
+
+
+        int[] theints=new int[4] {45,78,1,4};
+        int[] uhh = new int[7] { 7, 7, 7, 7, 7, 7, 7 };
+        void add(int[] i )
+        {
+            int sum ;
+            for (int sum = , int[] !=, sum++)
+            {
+
+            }
+            
+        }
 
         ////void chnageNumber(float a)
 
@@ -484,74 +508,94 @@ namespace HelloDungeon
 
             }
 
+        void Combat()
+        {
 
-            void PickChassis()
+        }
+
+
+        void BuildaRobot()
+        {
+            BeginDialogue(0, "IN AEDIFICATOR ORTEGO'S OFFICE");
+            Dialogue(1, "Finally, I got his core out!");
+            Dialogue(1, "Better be careful with this, these power cores can be very volatile.");
+            EndDialogue(1, "Okay, so first thing's first, I'm gonna need to put you into a new chassis, but what to pick...");
+
+            int uhh = 0;
+            while (uhh == 0)
             {
+                uhh = 1;
+                DecisionDialogue(0, "SELECT A CHASSIS", "Hermes Chassis: enables faster movement at the cost of of being weaker", "Hercules' Chassis: Boasts stronger offensive capabilites.", "Salus' Chassis: offers higher durability at the cost of agility.");
 
-            }
-
-            void BuildaRobot()
-            {
-                BeginDialogue(0, "IN AEDIFICATOR ORTEGO'S OFFICE");
-                Dialogue(1, "Finally, I got his core out!");
-                Dialogue(1, "Better be careful with this, these power cores can be very volatile.");
-                EndDialogue(1, "Okay, so first thing's first, I'm gonna need to put you into a new chassis, but what to pick...");
-
-                int uhh = 0;
-                while (uhh == 0)
+                if (PlayerChoice == "1")
                 {
-                    uhh = 1;
-                    DecisionDialogue(0, "SELECT A CHASSIS", "Hermes Chassis: enables faster movement at the cost of of being weaker", "Hercules' Chassis: Boasts stronger offensive capabilites.", "Salus' Chassis: offers higher durability at the cost of agility.");
-
-                    if (PlayerChoice == "1")
-                    {
-                        Player0 = PlayerA;
-                    }
-                    else if (PlayerChoice == "2")
-                    {
-                        Player0 = PlayerB;
-                    }
-                    else if (PlayerChoice == "3")
-                    {
-                        Player0 = PlayerC;
-                    }
-
-                    ShowStatus(Player0);
-
-                    DecisionDialogue(1, "Would this be a good fit?", "Yeah!", "Nah...", "");
-
-                    if (PlayerChoice == "1")
-                    {
-                        uhh++;
-                    }
-                    else if (PlayerChoice == "2")
-                    {
-                        return;
-                    }
+                    Player0 = PlayerA;
+                }
+                else if (PlayerChoice == "2")
+                {
+                    Player0 = PlayerB;
+                }
+                else if (PlayerChoice == "3")
+                {
+                    Player0 = PlayerC;
                 }
 
-            Dialogue(1, "Okay, now I need to give him a weapon, can't have him running around just flailing his arms at this things.");
-            DecisionDialogue(1, "What should I give him?", "Gatling gun: "+ GatlingGun.AttackInfo, "Flamethrower: "+FlameThrower.AttackInfo,"fulgur"+Railgun.AttackInfo);
+                ShowStatus(Player0);
 
-            if (PlayerChoice == "1")
-            {
-                Player0.CharacterAttack2 = GatlingGun;
-            }
-            else if (PlayerChoice == "2")
-            {
-                Player0.CharacterAttack2 = FlameThrower;
-            }
-            else if (PlayerChoice == "3")
-            {
-                Player0.CharacterAttack2 = Railgun;
+                DecisionDialogue(1, "Would this be a good fit?", "Yeah!", "Nah...", "");
+
+                if (PlayerChoice == "1")
+                {
+                    uhh++;
+                }
+                else if (PlayerChoice == "2")
+                {
+                    return;
+                }
             }
 
-            ShowWeaponStats(Player0.CharacterAttack2);
+        Dialogue(1, "Okay, now I need to give him a weapon, can't have him running around just flailing his arms at this things.");
+        DecisionDialogue(1, "What should I give him?", "Gatling gun: "+ GatlingGun.AttackInfo, "Flamethrower: "+FlameThrower.AttackInfo,"fulgur"+Railgun.AttackInfo);
 
-            }
-        
-       
-                                                                                                void Start()
+        if (PlayerChoice == "1")
+        {
+            Player0.CharacterAttack2 = GatlingGun;
+        }
+        else if (PlayerChoice == "2")
+        {
+            Player0.CharacterAttack2 = FlameThrower;
+        }
+        else if (PlayerChoice == "3")
+        {
+            Player0.CharacterAttack2 = Railgun;
+        }
+
+        ShowWeaponStats(Player0.CharacterAttack2);
+
+        DecisionDialogue(1, "Would this serve him well?", "Yeah!", "On second thought...", "");
+
+        if (PlayerChoice == "1")
+        {
+            uhh++;
+        }
+        else if (PlayerChoice == "2")
+        {
+            return;
+        }
+
+        Dialogue(1, "Alright! We're doing this! We're actually doing this");
+        Dialogue(1, "Get ready to fight!");
+        CurrentScene = 1;
+
+    }
+
+        void TestDrive()
+        {
+            Dialogue(1, "uhhh");
+        }
+
+
+        void Start()
         {
             //all moves
 
@@ -631,7 +675,7 @@ namespace HelloDungeon
             ///.CharacterAttack2 =
 
             Player0.CharacterName= "J-CCC";
-            Player0.CharacterInfo = "A robot with new found purpose";
+            Player0.CharacterInfo = "A Standard Janus Bot";
             Player0.CharacterHealth = 10000f;
             Player0.CharacterDefense = .47f;
             Player0.CharacterSpeed = 15f;
@@ -641,7 +685,7 @@ namespace HelloDungeon
             Player0.CharacterAttack2 = Mopstrike;
 
             PlayerA.CharacterName = "J-CCC";
-            PlayerA.CharacterInfo = "A robot with new found purpose";
+            PlayerA.CharacterInfo = "A Fast robot with new found purpose";
             PlayerA.CharacterHealth = 1500f;
             PlayerA.CharacterDefense = .80f;
             PlayerA.CharacterSpeed = 75f;
@@ -651,7 +695,7 @@ namespace HelloDungeon
             PlayerA.CharacterAttack2 = Mopstrike;
 
             PlayerB.CharacterName = "J-CCC";
-            PlayerB.CharacterInfo = "A robot with new found purpose";
+            PlayerB.CharacterInfo = "A Dangerous robot with new found purpose";
             PlayerB.CharacterHealth = 2250f;
             PlayerB.CharacterDefense = .69f;
             PlayerB.CharacterSpeed = 45f;
@@ -662,7 +706,7 @@ namespace HelloDungeon
 
 
             PlayerC.CharacterName = "J-CCC";
-            PlayerC.CharacterInfo = "A robot with new found purpose";
+            PlayerC.CharacterInfo = "A Bulky robot with new found purpose";
             PlayerC.CharacterHealth = 3750f;
             PlayerC.CharacterDefense = .50f;
             PlayerC.CharacterSpeed = 15f;
@@ -702,6 +746,10 @@ namespace HelloDungeon
             {
                 BuildaRobot();
                 //Combat(Stalker, Hurker);
+            }
+            else if (CurrentScene == 1)
+            {
+                TestDrive();
             }
         }
         
