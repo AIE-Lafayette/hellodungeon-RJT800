@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace HelloDungeon
@@ -196,8 +197,8 @@ namespace HelloDungeon
             float remainingHealth = Hurker.CharacterHealth - reducedDamage;
             if (remainingHealth > 0)
             {
-            EndDialogue(0, Stalker.CharacterName + " claws " + Hurker.CharacterName + " for " + reducedDamage + " damage!");
-            
+                EndDialogue(0, Stalker.CharacterName + " claws " + Hurker.CharacterName + " for " + reducedDamage + " damage!");
+
             }
             else if (remainingHealth < 0)
             {
@@ -230,10 +231,10 @@ namespace HelloDungeon
         }
 
 
-        void AttackMove(ref Attack move, ref Character target)
+        void AttackMove(ref Character attacker, ref Attack move, ref Character target)
         {
-            
-            //float combinedAttackDamage = (move.CharacterDamageMultiplier * move.CharacterAttack);
+
+            //float combinedAttackDamage = (attacker.CharacterDamageMultiplier * Character.CharacterAttack);
             //float reducedDamage = (combinedAttackDamage * target.CharacterDefense);
             //float remainingHealth = target.CharacterHealth - reducedDamage;
         }
@@ -246,19 +247,39 @@ namespace HelloDungeon
         /// </summary>
 
 
-        int[] theints=new int[4] {45,78,1,4};
+        int[] theints = new int[4] { 30239, 78, 1, 129 };
         int[] uhh = new int[7] { 7, 7, 7, 7, 7, 7, 7 };
-        void add(int[] i )
+        //int
+        //int add(int[] numbers)
+        //{
+        //    int sum = 0;
+        //    for (int i = 0; i < numbers.Length; i++)
+        //    {
+        //        sum += numbers[i];
+        //    }
+        //    Console.WriteLine(sum);
+        //    return sum;
+        //}
+
+
+
+        //create function that takes in an interger array that prints out the larger number
+
+        void biggernumber(int[] numbers)
         {
-            int countup = 0;
             
-            for (int sum = , != int.MaxValue, countup++)
+            int bignumber =  numbers[0];
+            for (int i = 0; i < numbers.Length; i++)
             {
-                int TotalNum;
-                int lastNum;
-                int nextNum;
+                if(bignumber < numbers[i])
+                {
+                    bignumber = numbers[i];
+                }
+
             }
             
+            Console.WriteLine(bignumber);
+            return;
         }
 
         ////void chnageNumber(float a)
@@ -1202,7 +1223,7 @@ namespace HelloDungeon
             //ALWAYS HAVE THE TEST FUNCTION UNDERNEATH START!!!!!!!!!!!!!!!!!!!!
             Start();
 
-
+            biggernumber(theints);
             while (GameOver==false)
             {
                 Update();
