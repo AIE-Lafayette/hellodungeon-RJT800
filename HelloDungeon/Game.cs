@@ -234,53 +234,12 @@ namespace HelloDungeon
         void AttackMove(ref Character attacker, ref Attack move, ref Character target)
         {
 
-            //float combinedAttackDamage = (attacker.CharacterDamageMultiplier * Character.CharacterAttack);
-            //float reducedDamage = (combinedAttackDamage * target.CharacterDefense);
-            //float remainingHealth = target.CharacterHealth - reducedDamage;
+            float combinedAttackDamage = (attacker.CharacterDamageMultiplier * Character.CharacterAttack);
+            float reducedDamage = (combinedAttackDamage * target.CharacterDefense);
+            float remainingHealth = target.CharacterHealth - reducedDamage;
         }
 
-        /// <summary>
-        /// create a function that takes a integer array.
-        /// the function should print out the sum of all of the values in the array
-        /// input: int[] numbers = int [3] {1,2, 3};
-        /// output: 6
-        /// </summary>
 
-
-        int[] theints = new int[4] { 30239, 78, 1, 129 };
-        int[] uhh = new int[7] { 7, 7, 7, 7, 7, 7, 7 };
-        //int
-        //int add(int[] numbers)
-        //{
-        //    int sum = 0;
-        //    for (int i = 0; i < numbers.Length; i++)
-        //    {
-        //        sum += numbers[i];
-        //    }
-        //    Console.WriteLine(sum);
-        //    return sum;
-        //}
-
-
-
-        //create function that takes in an interger array that prints out the larger number
-
-        void biggernumber(int[] numbers)
-        {
-            
-            int bignumber =  numbers[0];
-            for (int i = 0; i < numbers.Length; i++)
-            {
-                if(bignumber < numbers[i])
-                {
-                    bignumber = numbers[i];
-                }
-
-            }
-            
-            Console.WriteLine(bignumber);
-            return;
-        }
 
         ////void chnageNumber(float a)
 
