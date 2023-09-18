@@ -238,14 +238,19 @@ namespace HelloDungeon
             //float remainingHealth = target.CharacterHealth - reducedDamage;
         }
 
-
+        /// <summary>
+        /// create a function that takes a integer array.
+        /// the function should print out the sum of all of the values in the array
+        /// input: int[] numbers = int [3] {1,2, 3};
+        /// output: 6
+        /// </summary>
 
 
         int[] theints=new int[4] {45,78,1,4};
         int[] uhh = new int[7] { 7, 7, 7, 7, 7, 7, 7 };
         void add(int[] i )
         {
-            int sum ;
+            int sum;
             for (int sum = , int[] !=, sum++)
             {
 
