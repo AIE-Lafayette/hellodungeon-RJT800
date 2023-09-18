@@ -250,10 +250,13 @@ namespace HelloDungeon
         int[] uhh = new int[7] { 7, 7, 7, 7, 7, 7, 7 };
         void add(int[] i )
         {
-            int sum;
-            for (int sum = , int[] !=, sum++)
+            int countup = 0;
+            
+            for (int sum = , != int.MaxValue, countup++)
             {
-
+                int TotalNum;
+                int lastNum;
+                int nextNum;
             }
             
         }
